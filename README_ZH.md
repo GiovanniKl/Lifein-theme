@@ -112,11 +112,11 @@ Copyright © 2026 Chris
 
 ## 6 🙏 致谢
 
-- **\[Underwater\](**<https://github.com/seniblue/Underwater>**)** 主题：Light Focus Mode 的思路与实现参考自此。
-- **\[Baseline\](**<https://github.com/svnaxis/obsidian-baseline>**)** 主题：精细的布局、悬浮侧边栏参考。
-- **\[Border\](**<https://github.com/akifyss/obsidian-border>**)** 主题：标题样式参考。
-- **\[Minimal\](**<https://github.com/kepano/obsidian-minimal>**)** 主题：Style Settings 多设置块结构、Dataview 样式与进度条参考。
-- Obsidian 官方默认主题与社区，为本主题提供了基础与灵感。
+- **[Underwater](https://github.com/seniblue/Underwater)** 主题：Light Focus Mode 的思路与实现参考自此。
+- **[Baseline](https://github.com/svnaxis/obsidian-baseline)** 主题：精细的布局、悬浮侧边栏参考。
+- **[Border](https://github.com/akifyss/obsidian-border)** 主题：标题样式参考。
+- **[Minimal](https://github.com/kepano/obsidian-minimal)** 主题：Style Settings 多设置块结构、Dataview 样式与进度条参考。
+- **[Obsidian](https://obsidian.md)** 官方默认主题与社区，为本主题提供了基础与灵感。
 
 ---
 
