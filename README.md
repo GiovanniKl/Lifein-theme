@@ -76,7 +76,7 @@ The Core Views & Components group includes dedicated styling for Obsidian Bases.
 
 ## 3 📦 Installation
 
-### 3.1 Option 1: Obsidian Community Theme (pending submission to the community theme registry)
+### 3.1 Option 1: Obsidian Community Theme 
 
 1. Open Obsidian → Settings → Appearance.
 2. Click "Manage" → find **Lifein** in the theme list → enable it.
