@@ -76,7 +76,7 @@ The Core Views & Components group includes dedicated styling for Obsidian Bases.
 
 ## 3 📦 Installation
 
-### 3.1 Option 1: Obsidian Community Theme (pending submission to the community theme registry)
+### 3.1 Option 1: Obsidian Community Theme 
 
 1. Open Obsidian → Settings → Appearance.
 2. Click "Manage" → find **Lifein** in the theme list → enable it.
@@ -92,6 +92,12 @@ The Core Views & Components group includes dedicated styling for Obsidian Bases.
 
 1. Install the **Style Settings** community plugin.
 2. Go to Settings → Community Plugins → Style Settings (or the command palette "Style Settings") to see all of Lifein's adjustable options.
+
+### 3.4 Reading the Source (Optional)
+
+`theme.css` in this repository is intentionally minified — it ships as a single line of CSS (plus the verbatim Style Settings `@settings` blocks) to stay well under the theme size limit. **This costs you nothing in adjustability**: every option still lives in the Style Settings panel.
+
+If you'd rather read the code, the fully commented original ships right next to it as **[`theme.source.css`](./theme.source.css)** — 16,000+ lines, with a section banner and an explanation above nearly every block. Install with `theme.css`; read and fork from `theme.source.css`.
 
 ---
 

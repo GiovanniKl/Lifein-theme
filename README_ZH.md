@@ -76,7 +76,7 @@
 
 ## 3 📦 安装
 
-### 3.1 方式一：Obsidian 社区主题（待提交到社区主题中心）
+### 3.1 方式一：Obsidian 社区主题
 
 1. 打开 Obsidian → 设置 → 外观。
 2. 点击「管理」→ 在主题列表中找到 **Lifein** → 启用。
@@ -92,6 +92,12 @@
 
 1. 在「社区插件」中安装 **Style Settings**。
 2. 设置 → 第三方插件 → Style Settings（或命令面板「Style Settings」）中即可看到 Lifein 的全部调节项。
+
+### 3.4 阅读源码（可选）
+
+本仓库的 `theme.css` 是刻意压缩过的 —— 它以一整行 CSS 的形式发布（Style Settings 的 `@settings` 块按原样保留），为的是把体积压到主题审核线以内。**这不影响你可调的范围**：所有选项仍然完整出现在 Style Settings 面板里。
+
+如果你想读代码，带完整注释的源文件就放在它旁边 —— **[`theme.source.css`](./theme.source.css)**，16,000 多行，几乎每个代码段上方都有分区标题和说明。安装用 `theme.css`，阅读与二次开发请打开 `theme.source.css`。
 
 ---
 
