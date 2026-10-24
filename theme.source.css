@@ -1501,26 +1501,62 @@ div.cm-line > span.cm-blockid {
   }
 }
 
-/*------------------------编辑器选区 / 光标（锚定主题强调色）------------------------*/
+/*--------------------编辑器选区 / 光标 / ==高亮==（锚定主题鲜艳绿）--------------------*/
 /* app.css 默认这两处都不跟随主题强调色：
    ① 选区 --text-selection = hsla(var(--color-accent-hsl), .2)（亮）/ hsla(var(--interactive-accent-hsl), .33)（暗）
       → 走 Obsidian 默认强调色（紫 258,88%,66%），跟主题的绿不符。
    ② 光标 --caret-color = var(--text-normal)（普通文字色），完全不跟强调色。
-   这里把两者都锚到主题绿 --color-green（亮 #08b94e / 暗 #44cf6e）：
-   - 选区沿用 app.css 亮/暗各自的浓度（亮 20% / 暗 33%），只换色相，保持原有观感强度。
+   这里把两者都锚到主题的「鲜艳版」绿 var(--color-green-solid, rgb(52,199,89))：
+   - ⚠ 不能锚 --color-green（柔和版）：配色预设改造后，body 级 --color-green 已是
+     oklch(L≥0.82, C≤cap-base) 的淡绿（还混入 10% 强调色，见下方「语义色」段），
+     选区 = 20%/33% 的淡绿叠在近白背景上实测几乎看不见（与底色差 21~32；
+     原生紫 35、鲜艳绿 52）。选区/光标属「淡染底 / 高对比元素」，按语义色段的
+     设计分工，这一档消费点本该用鲜艳版 --color-green-rgb 支线。
+   - 用 var(--color-green-solid, …) 而非直接写三元组：Style Settings 取色器只写
+     --color-green-solid 一个值，用户改绿时选区/光标一起跟随；没碰过取色器时
+     兜底就是字面鲜艳绿（亮 52,199,89 / 暗 63,209,48），避免"无 fallback 的 var()
+     整条声明被静默丢弃"导致悄悄退回紫色。
+   - 选区浓度：亮 20%（沿用 app.css 原值，只换色相）；深 36.0784%（= 92/255，
+     用户实测定标）。深色档的兜底绿也从 48,209,88 换成更亮的 63,209,48 ——
+     实测与底色差 73.4（原 68.7），白字对比 9.02，两档都在安全区。
    - 光标用满不透明绿，保证浅底/深底都看得清；CM 编辑器 .cm-cursor 的 border-left-color
      与普通输入框的 caret-color 都吃这一个变量，改一处两边同步。
-   - 都写了 fallback（--color-green 万一缺失就退回字面绿），避免"无 fallback 的 var()
-     整条声明被静默丢弃"导致悄悄退回紫色。
    注意：表格组件 .cm-table-widget.has-selection 自己把 --text-selection 设为 transparent
-   （特异性 (0,3,0) 更高），不会受影响。 */
+   （特异性 (0,3,0) 更高），不会受影响。
+
+   ③ ==高亮==（mark / cm-highlight）走的是另一条链，与强调色无关：
+   app.css body 作用域 --highlight-opacity: 30% → --highlight-background-yellow =
+   color-mix(in oklch, var(--color-yellow) 30%, transparent) → --highlight-background
+   = var(--text-highlight-bg, var(--highlight-background-yellow))。
+   实测默认 30% 的黄叠在近白背景上色差只有 80（浅）/ 93（深），后者还偏"灰"，
+   观感偏淡。这里的默认值是用户实测定标后手调的（2026-10-25），分两路落地：
+   - --text-highlight-bg 直接写 hex8（浅 #E0AC0096 / 深 #E0BC7195）。走 app.css 那条
+     fallback 链的第一跳，比再套一层 --highlight-opacity 派生更直白，也免得深色档
+     为了迁就 --color-yellow（#e0de71）而要动色相。
+   - --highlight-opacity 保持 45%，只负责 6 个彩色高亮变体（mark[data-highlight=red/…]
+     各自把 --highlight-background 换成同 45% 的彩底）与搜索结果闪烁 .is-flashing。
+     ⚠ 也就是说黄色高亮与彩色高亮现在浓度不同（黄 58~59% / 彩 45%）：黄色是用户
+     点名要更醒目的那一档，彩色保持"看得见但不抢字"。
+   ⚠ 本主题没有重定义 --color-yellow / --color-orange / --color-purple（语义色段只改了
+   green/red/blue 三支），所以这三个色相的 highlight 底色仍是 app.css 原值。
+   ⚠ 深色档的 #E0BC71 不是 app.css 的 --color-yellow（#e0de71），是更暖的砂金：
+   实测同一 71% 浓度下，主题黄只有 2.69:1 文字对比度，暖砂金有 3.34:1 —— 用户这个
+   色相选得对。但 71% 仍然跌破 WCAG AA 正文 4.5:1，所以默认值按"白字对比 ≥4.5 的
+   最大浓度"收在 58.43%（149/255 → #E0BC7195），实测 4.54:1、与底色差 166.6
+   （45% 旧默认 138.6）。要更抢眼可在旋钮里把透明度推高，代价是文字对比度。
+   用户可在 Style Settings「行内、块级元素 → 高亮文本背景色」覆写；旋钮的明暗默认值
+   与本段逐像素一致（插件注入 default-light/dark，特异性 (0,2,1) 胜 .theme-*）。 */
 .theme-light {
-  --text-selection: color-mix(in srgb, var(--color-green, #08b94e) 20%, transparent);
-  --caret-color: var(--color-green, #08b94e);
+  --text-selection: color-mix(in srgb, var(--color-green-solid, rgb(52, 199, 89)) 20%, transparent);
+  --caret-color: var(--color-green-solid, rgb(52, 199, 89));
+  --text-highlight-bg: #E0AC0096;
+  --highlight-opacity: 45%;
 }
 .theme-dark {
-  --text-selection: color-mix(in srgb, var(--color-green, #44cf6e) 33%, transparent);
-  --caret-color: var(--color-green, #44cf6e);
+  --text-selection: color-mix(in srgb, var(--color-green-solid, rgb(63, 209, 48)) 36.0784%, transparent);
+  --caret-color: var(--color-green-solid, rgb(48, 209, 88));
+  --text-highlight-bg: #E0BC7195;
+  --highlight-opacity: 45%;
 }
 
 
@@ -1988,10 +2024,17 @@ span[src*="bannerimg"] img {
 }
 
 /* ---------- 6. Canvas / 嵌入中禁用 Banner 行为 ---------- */
+/* ⚠ padding-top 必须一起清掉：横幅的撑高机制是「height:0 + padding-top:比例」，
+   图片 position:absolute 填满。这里把 height 改回 auto、position 改回 static，
+   却没清 padding-top —— 两条特异度相同、本条位置更靠后，于是 height:auto 赢了、
+   padding-top:30% 仍生效，嵌入容器就白赚一块「宽度×30%」的顶部空白
+   （1200px 宽就是 360px，nav-dock 浮层里看 Homepage 就是这个问题）。
+   主窗口正文不走这条，撑高机制不受影响。 */
 .canvas-node-content .internal-embed[src*="bannerimg"],
 .markdown-embed .internal-embed[src*="bannerimg"] {
   position: static;
   height: auto;
+  padding-top: 0;
   overflow: hidden;
 }
 
@@ -6502,6 +6545,19 @@ body.theme-light .modal-container:has(.modal.mod-settings):not(.is-being-dragged
    保留原生尺寸，只优化玻璃感
    ======================================================================= */
 
+/* 2026-10-22 Windows 用户报障后补的两条铁律（改这段前必读）：
+   ① 浅色档必须连文字色一起改。app.css 里 button.mod-cta / button.mod-warning
+      只把 --text-color 设成 --text-on-accent（白字），底色一旦被下面换成
+      4% 黑，就成了「白字落在近白底上」——设置面板的「管理 / 检查更新」等
+      按钮整体消失（深色档 rgba(255,255,255,.08) 上白字还读得清，浅色档不行）。
+      --text-color 全仓只有 button 的 color 与 loading spinner 消费，补它不会
+      波及 .clickable-icon（那类走 --icon-color）。
+   ② 选择器不要用无类型 input。原生 input[type=color] 的色块由
+      ::-webkit-color-swatch 绘制，给元素本身设 background-color / border
+      没有任何好处；date / datetime-local / time 自带日历图标 background-image
+      （同 L6060「输入框层级」段的排除理由），range / checkbox / radio / file
+      也各有原生控件外观。这里只排除这些，其余输入框保持原有玻璃底。 */
+
 .modal.mod-settings input[type="text"],
 
 .modal.mod-settings select.dropdown,
@@ -6522,7 +6578,11 @@ body.theme-light .modal-container:has(.modal.mod-settings):not(.is-being-dragged
 
 }
 
-.theme-light .modal.mod-settings input,
+.theme-light .modal.mod-settings input:not(:is(
+    [type="color"], [type="date"], [type="datetime-local"], [type="time"],
+    [type="week"], [type="month"], [type="range"], [type="checkbox"],
+    [type="radio"], [type="file"], [type="image"], [type="button"],
+    [type="submit"], [type="reset"], [type="hidden"])),
 
 .theme-light .modal.mod-settings select,
 
@@ -6538,6 +6598,17 @@ body.theme-light .modal-container:has(.modal.mod-settings):not(.is-being-dragged
 
 }
 
+/* 铁律①：底色换成 4% 黑后，文字色必须同步回正文色，否则 mod-cta / mod-warning
+   的白字落在近白底上不可见。
+   --text-color 只给 button —— 全仓它的消费点只有 `button{color:var(--text-color)}`
+   与按钮内的 loading spinner；.clickable-icon 走 --icon-color，不受影响。 */
+.theme-light .modal.mod-settings button {
+
+    --text-color:
+        var(--text-normal)
+        !important;
+
+}
 
 /* =======================================================================
    I. Search Box
@@ -14117,6 +14188,28 @@ settings:
         format: hex
         default-light: "#8fd9a8"
         default-dark: "#56c878"
+    -
+        id: text-selection
+        title: Text selection background color
+        title.zh: 文本选取背景色
+        description: Background color when you select text, in light and dark mode. Default is theme green at 20% (light) / 36% (dark) alpha. Once you set this, it fully replaces the default and no longer follows the green color picker.
+        description.zh: 选中文本时的背景色，明暗两档各自独立。默认为主题绿 20% 不透明度（浅色）/ 36%（深色）。注意：一旦在此设置，该颜色将完全接管默认值，不再跟随上方强调色/绿色的取色器变化。
+        type: variable-themed-color
+        format: hex
+        opacity: true
+        default-light: "#34c75933"
+        default-dark: "#3FD1305C"
+    -
+        id: text-highlight-bg
+        title: Highlighted text background color
+        title.zh: 高亮文本背景色
+        description: Background color of ==highlighted== text (mark / cm-highlight) in light and dark mode. Default is warm amber at 59% alpha. Once you set this, it replaces the amber default; the colored variants (==red==, ==orange==, ...) keep their own colors, while the search-result flash and quick-switcher suggestion highlights share this same chain and will also follow your setting. Pushing the opacity too high in dark mode costs text contrast.
+        description.zh: ==像这样== 高亮文本（mark / cm-highlight）的背景色，明暗两档各自独立。默认为暖琥珀色 59% 不透明度。注意：一旦在此设置，将替换默认的琥珀底色；彩色高亮变体（==红==、==橙==等）仍使用各自原有颜色，而搜索结果闪烁高亮与快速切换器建议高亮与黄色高亮共用同一条链，也会随之变化。深色档下若把透明度推得过高，会牺牲高亮文字的可读性。
+        type: variable-themed-color
+        format: hex
+        opacity: true
+        default-light: "#E0AC0096"
+        default-dark: "#E0BC7195"
     -
         id: grp-tag
         title: Tags
