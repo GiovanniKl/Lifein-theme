@@ -6,6 +6,10 @@
 
 [English](./README.md) | [中文](./README_ZH.md)
 
+[![Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%237c3aed&label=downloads&query=%24%5B%22Lifein%22%5D.download&url=https%3A%2F%2Freleases.obsidian.md%2Fstats%2Ftheme)](https://github.com/ichris007/Lifein-theme) ![Obsidian](https://img.shields.io/badge/dynamic/json?query=%24.minAppVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fichris007%2FLifein-theme%2Fmain%2Fmanifest.json&label=Obsidian&color=7c3aed&prefix=v) [![GitHub stars](https://img.shields.io/github/stars/ichris007/Lifein-theme?style=flat&color=%237c3aed)](https://github.com/ichris007/Lifein-theme/stargazers) [![License](https://img.shields.io/github/license/ichris007/Lifein-theme?color=%237c3aed)](https://github.com/ichris007/Lifein-theme/blob/main/LICENSE)
+
+[Report a bug](https://github.com/ichris007/Lifein-theme/issues/new) · [Request a feature](https://github.com/ichris007/Lifein-theme/issues/new)
+
 > Lifein 不是一套「换色」主题，而是一整套可调的界面系统——配色、布局、侧栏、排版、属性面板、插件外观，全部收进同一个设置面板。想极简就极简，想有质感就有质感。
 >
 > 它以「玻璃拟态（Glassmorphism）」为视觉语言，深度集成 Style Settings，为专注内容而生。少即是多：把界面安静地退到内容后面，让笔记本身成为主角。
