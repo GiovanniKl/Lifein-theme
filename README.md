@@ -6,6 +6,10 @@
 
 [English](./README.md) | [中文](./README_ZH.md)
 
+[![Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%237c3aed&label=downloads&query=%24%5B%22Lifein%22%5D.download&url=https%3A%2F%2Freleases.obsidian.md%2Fstats%2Ftheme)](https://github.com/ichris007/Lifein-theme) ![Obsidian](https://img.shields.io/badge/dynamic/json?query=%24.minAppVersion&url=https%3A%2F%2Fraw.githubusercontent.com%2Fichris007%2FLifein-theme%2Fmain%2Fmanifest.json&label=Obsidian&color=7c3aed&prefix=v) [![GitHub stars](https://img.shields.io/github/stars/ichris007/Lifein-theme?style=flat&color=%237c3aed)](https://github.com/ichris007/Lifein-theme/stargazers) [![License](https://img.shields.io/github/license/ichris007/Lifein-theme?color=%237c3aed)](https://github.com/ichris007/Lifein-theme/blob/main/LICENSE)
+
+[Report a bug](https://github.com/ichris007/Lifein-theme/issues/new) · [Request a feature](https://github.com/ichris007/Lifein-theme/issues/new)
+
 > Lifein isn't just a recolor theme — it's a fully tunable interface system. Colors, layout, sidebar, typography, the properties panel, and plugin appearance all live in a single settings panel. Go minimal when you want minimal; go textured when you want texture.
 >
 > Built on a Glassmorphism visual language and deeply integrated with Style Settings, Lifein is made for focused writing. Less is more: let the interface quietly step back behind your content, and let your notes take center stage.
